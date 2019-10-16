@@ -11,15 +11,14 @@ LABEL maintainer="Luca Perret <perret.luca@gmail.com>" \
 
 WORKDIR /usr/src/api
 
-RUN echo "unsafe-perm = true" >> ~/.npmrc
-
-RUN npm install -g strapi@alpha
-
 COPY strapi.sh ./
-RUN chmod +x ./strapi.sh && \
+RUN echo "unsafe-perm = true" >> ~/.npmrc && \
+      mkdir -p /mnt/sqlite && \
+      npm install -g strapi@alpha && \
       apk --update add sqlite && \
-      cd /opt/ && \
-      strapi new strapi-app-quick --dbfile /mnt/sqlite
+      strapi new strapi-app --dbfile /mnt/sqlite
+
+RUN chmod +x ./strapi.sh
 
 EXPOSE 1337
 
