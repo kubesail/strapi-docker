@@ -24,8 +24,20 @@ The most advanced open-source Content Management Framework to build powerful API
 docker pull strapi/strapi
 ```
 
-### Then run image
+### Then run the image
 
+#### SQLite Example:
+```bash
+mkdir strapi-data
+
+docker run -e DATABASE_CLIENT=sqlite \
+           -v `pwd`/strapi-data:/mnt/sqlite \
+           -p 1337:1337 \
+           --name strapi -d strapi/strapi
+```
+(Note that SQLite is not recommend for produciton deployments, but is the easiest way to preview Strapi)
+
+#### MongoDB Example:
 Start a database (e.g. MongoDB)
 
 ```bash

@@ -16,7 +16,10 @@ RUN echo "unsafe-perm = true" >> ~/.npmrc
 RUN npm install -g strapi@alpha
 
 COPY strapi.sh ./
-RUN chmod +x ./strapi.sh
+RUN chmod +x ./strapi.sh && \
+      apk --update add sqlite && \
+      cd /opt/ && \
+      strapi new strapi-app-quick --dbfile /mnt/sqlite
 
 EXPOSE 1337
 
